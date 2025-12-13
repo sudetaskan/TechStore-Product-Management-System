@@ -14,7 +14,7 @@ public class TechStore {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        // Sude bu yorumu görüyorsan bağlantı başarılıdır
     }
     
 }
