@@ -15,17 +15,19 @@ public abstract class ElectronicDevice {
     public ElectronicDevice() {
     }
 
-    public ElectronicDevice(String brand, String model, double price) {
+    public ElectronicDevice(String brand, String model, String serialNum, double price) {
         this.brand = brand;
         this.model = model;
+        this.serialNum=serialNum;
         this.price = price;
     }
     
     public abstract double calculatePrice();
     @Override
     public String toString(){
-       return "\nElectronic Device:"+
-              "\nBrand: "+this.brand+
-              "\nModel: "+this.model ;
+       return "\nElectronic Device Information :"+
+              "\nBrand : "+this.brand+
+              "\nModel : "+this.model+
+              "\nSerial Num : "+this.serialNum;
     }
 }
