@@ -5,7 +5,7 @@ package techstore;
  *
  * @author Beyza
  */
-public class Tablet extends ElectronicDevice implements Warrantity, CampaignApplicable{
+public class Tablet extends ElectronicDevice implements Warranty, CampaignApplicable{
     private double screenSize;
     protected Pencil pencil;
 
@@ -16,6 +16,7 @@ public class Tablet extends ElectronicDevice implements Warrantity, CampaignAppl
     public Tablet(double screenSize, String brand, String model, String serialNum, double price) {
         super(brand, model, serialNum, price);
         this.screenSize = screenSize;
+        this.pencil= new Pencil();
     }
     
     @Override
@@ -53,7 +54,7 @@ public class Tablet extends ElectronicDevice implements Warrantity, CampaignAppl
 
     @Override
     public void warrantityPeriod(int period) {
-        period=Tablet.STANDART_PERİOD1 + (int)(this.price/10000);
+        period=Tablet.STANDART_PERIOD1 + (int)(this.price/10000);
         System.out.printf("The warranty period for %s branded tablet models is %d months.",this.brand,period);
     }
 
