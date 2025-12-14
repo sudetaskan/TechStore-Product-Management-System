@@ -1,14 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package techstore;
 
 /**
  *
  * @author Beyza
  */
-public class Tablet extends ElectronicDevice implements Warrantity{
+public class Tablet extends ElectronicDevice implements Warrantity, CampaignApplicable{
     private double screenSize;
     protected Pencil pencil;
 
@@ -21,7 +18,13 @@ public class Tablet extends ElectronicDevice implements Warrantity{
         this.screenSize = screenSize;
     }
     
-    
+    @Override
+    public boolean applyDisCount(String brand) {
+       return switch(brand){
+           case "Apple","Microsoft" -> true;
+           default -> false;
+       };
+    }
     @Override
     public double calculatePrice() {
         switch(this.brand){
@@ -30,7 +33,11 @@ public class Tablet extends ElectronicDevice implements Warrantity{
             case "Huawei" -> this.price=32000;
             case "Microsoft" -> this.price=60000;
         }
-        return this.price;//indirim ile ilgili kısım eklenecek
+        if(applyDisCount(brand)){
+            this.price=this.price*0.95;
+        }
+        
+        return this.price;
     }
     @Override
     public String toString(){
@@ -47,5 +54,7 @@ public class Tablet extends ElectronicDevice implements Warrantity{
         period=Tablet.STANDART_PERİOD1 + (int)(this.price/10000);
         System.out.printf("The warranty period for %s branded tablet models is %d months.",this.brand,period);
     }
+
+    
     
 }
