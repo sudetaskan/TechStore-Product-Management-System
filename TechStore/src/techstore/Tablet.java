@@ -41,11 +41,13 @@ public class Tablet extends ElectronicDevice implements Warrantity, CampaignAppl
     }
     @Override
     public String toString(){
+        boolean ischangeablePencilNib=pencil.isChangeablePencilNib(brand);
+        String changeablePencilNib= ischangeablePencilNib ? "Yes" : "No";
         return   super.toString()+
                 "\nElectronic Device : Tablet"+
                 "\nScreen Size : "+this.screenSize+
                 "\nTablet's Pencil Type : "+pencil.getPencilType()+
-                "\nIs the tablet's nib changeable ? : "+pencil.isChangeablePencilNib(brand);
+                "\nIs the tablet's nib changeable ? : " + changeablePencilNib;
         
     }
 

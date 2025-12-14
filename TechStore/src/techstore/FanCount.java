@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package techstore;
 
 /**
@@ -9,6 +6,7 @@ package techstore;
  * @author Beyza
  */
 public class FanCount {
+    
     public int numberFanCount(String brand){
         int numberOfFan=0; 
         switch(brand){
