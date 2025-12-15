@@ -1,5 +1,5 @@
 
-package techstore;
+package techstore.components;
 
 /**
  *

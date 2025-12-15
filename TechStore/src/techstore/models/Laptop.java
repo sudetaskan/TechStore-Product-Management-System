@@ -1,4 +1,8 @@
-package techstore;
+package techstore.models;
+
+import techstore.components.FanCount;
+import techstore.interfaces.Warranty;
+import techstore.interfaces.CampaignApplicable;
 
 /**
  *
