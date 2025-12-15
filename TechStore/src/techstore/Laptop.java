@@ -49,17 +49,18 @@ public class Laptop extends ElectronicDevice implements Warrantity, CampaignAppl
 
     @Override
     public String toString() {
-        return super.toString()
-                + "\nElectronic Device : Laptop"
+        return  "\nLAPTOP"
+                +super.toString()
                 + "\nRam Size : " + this.ramSize
                 + "\nCPU : " + this.cpu
-                + "\nLaptop's Fan Count : " + fanCount.numberFanCount(brand);
+                + "\nLaptop's Fan Count : " + fanCount.numberFanCount(brand)
+                + "\nThe Price of Laptop is "+calculatePrice()+" TL";
 
     }
 
     @Override
     public void warrantityPeriod(int period) {
-        period = Laptop.STANDART_PERİOD2 + (int) (this.price / 15000);
+        period = Laptop.STANDART_PERIOD2 + (int) (this.price / 15000);
         System.out.printf("The warranty period for %s branded laptop models is %d months.", this.brand, period);
     }
 

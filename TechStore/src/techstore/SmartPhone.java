@@ -7,7 +7,7 @@ public class SmartPhone extends ElectronicDevice implements Warrantity, Campaign
 
     
 
-    public SmartPhone(boolean is5G, NfcModule nfcModule, String brand, String model, String serialNum, double price) {
+    public SmartPhone(String brand, String model, String serialNum, double price,boolean is5G, NfcModule nfcModule) {
         super(brand, model, serialNum, price);
         this.is5G = is5G;
         this.nfcModule =new NfcModule();
@@ -44,16 +44,19 @@ public class SmartPhone extends ElectronicDevice implements Warrantity, Campaign
         boolean hasNfc = nfcModule.hasNfcModule(brand);
         String nfcState = hasNfc ? "Yes": "No";
         
-        return "\nSmartPhone"
+        return "\nSMART PHONE"
                 + super.toString()
-                + "\nIs 5G= " + is5G
-                + "\nNfcModule= " +  nfcState;
+                + "\nIs 5G : " + is5G
+                + "\nNfc Module : " +  nfcState
+                + "\nThe Price of Smart is "+calculatePrice()+" TL";
 
     }
 
     @Override
     public void warrantityPeriod(int period) {
-         period = Laptop.STANDART_PERİOD3 + (int) (this.price / 10000);
+
+        period = SmartPhone.STANDART_PERIOD3 + (int) (this.price / 10000);
+
         System.out.printf("The warranty period for %s branded smartphone models is %d months.", this.brand, period);
         
     }
