@@ -50,11 +50,12 @@ public class Laptop extends ElectronicDevice implements Warranty, CampaignApplic
 
     @Override
     public String toString() {
-        return super.toString()
-                + "\nElectronic Device : Laptop"
+        return  "\nLAPTOP"
+                +super.toString()
                 + "\nRam Size : " + this.ramSize
                 + "\nCPU : " + this.cpu
-                + "\nLaptop's Fan Count : " + fanCount.numberFanCount(brand);
+                + "\nLaptop's Fan Count : " + fanCount.numberFanCount(brand)
+                + "\nThe Price of Laptop is "+calculatePrice()+" TL";
 
     }
 
