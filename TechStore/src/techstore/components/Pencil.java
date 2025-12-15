@@ -14,21 +14,18 @@ public class Pencil {
         boolean isChange=false;
         switch(brand){
             case "Apple" -> {
-                this.pencilType="Apple Pencil (2nd Generation)";
+                this.pencilType="Apple Pencil (USB-C)";
                 isChange=true;
             }
             case "Samsung" -> {
-                this.pencilType="S Pen Creator Edition";
+                this.pencilType="S Pen (Standard Soft Tip)";
                 isChange=true;
             }
-            case "Huawei" -> { 
-                this.pencilType="HUAWEI M-Pencil (3rd Generation)";
-                isChange=false;
-            }    
-            case "Microsoft" -> {
-                this.pencilType="Surface Slim Pen 2";
+            case "Lenovo" -> { 
+                this.pencilType="Lenovo Precision Pen 2 (Active Stylus)";
                 isChange=true;
             }    
+               
         }
         return isChange;
     }

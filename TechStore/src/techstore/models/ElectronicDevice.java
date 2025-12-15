@@ -22,7 +22,7 @@ public abstract class ElectronicDevice {
     public abstract double calculatePrice();
     @Override
     public String toString(){
-       return "\nElectronic Device Information"+
+       return "\n=== Electronic Device Information ==="+
               "\nBrand : "+this.brand+
               "\nModel : "+this.model+
               "\nSerial Num : "+this.serialNum;

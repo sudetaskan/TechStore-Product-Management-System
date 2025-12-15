@@ -10,16 +10,17 @@ import techstore.interfaces.CampaignApplicable;
  */
 public class Laptop extends ElectronicDevice implements Warranty, CampaignApplicable {
 
-    private int ramSize, cpu;
+    private int ramSize, cpu,ssd;
     protected FanCount fanCount;
 
     public Laptop() {
     }
 
-    public Laptop(String brand, String model, String serialNum, double price, int ramSize, int cpu) {
+    public Laptop(String brand, String model, String serialNum, double price, int ramSize, int cpu,int ssd) {
         super(brand, model, serialNum, price);
         this.ramSize = ramSize;
         this.cpu = cpu;
+        this.ssd=ssd;
         this.fanCount=new FanCount();
     }
 
@@ -37,13 +38,13 @@ public class Laptop extends ElectronicDevice implements Warranty, CampaignApplic
     public double calculatePrice() {
         switch (this.brand) {
             case "Apple" ->
-                this.price = 95000;
+                this.price = 94999;
             case "Dell" ->
-                this.price = 88000;
+                this.price = 57999;
             case "Lenovo" ->
-                this.price = 65000;
+                this.price = 37999;
             case "Asus" ->
-                this.price = 38000;
+                this.price = 70999;
         }
        if(applyDisCount(brand)){
            this.price=this.price*0.9;
@@ -54,12 +55,13 @@ public class Laptop extends ElectronicDevice implements Warranty, CampaignApplic
 
     @Override
     public String toString() {
-        return  "\nLAPTOP"
-                +super.toString()
-                + "\nRam Size : " + this.ramSize+ " GB"
+        return "\nLAPTOP"
+                + super.toString()
+                + "\nRam Size : " + this.ramSize + " GB"
+                + "\nSSD : " + this.ssd + " GB"
                 + "\nCPU : " + this.cpu
                 + "\nLaptop's Fan Count : " + fanCount.numberFanCount(brand)
-                + "\nThe Price of Laptop is "+calculatePrice()+" TL";
+                + "\nThe Price of Laptop is " + calculatePrice() + " TL";
 
     }
 

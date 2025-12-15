@@ -25,17 +25,21 @@ public class Tablet extends ElectronicDevice implements Warranty, CampaignApplic
     @Override
     public boolean applyDisCount(String brand) {
        return switch(brand){
-           case "Apple","Microsoft" -> true;
+           case "Apple","Lenovo" -> true;
            default -> false;
        };
     }
     @Override
     public double calculatePrice() {
         switch(this.brand){
-            case "Apple" -> this.price=68000;
-            case "Samsung" -> this.price=43000;
-            case "Huawei" -> this.price=32000;
-            case "Microsoft" -> this.price=60000;
+            case "Apple" -> this.price=18499;
+            case "Samsung" ->{
+                switch(this.model){
+                    case "Galaxy Tab S10FE 8/128GB" -> this.price=16899;
+                    case "Galaxy Tab S10 Lite 8/256GB" -> this.price=15799;
+                }
+            }
+            case "Lenovo" -> this.price=13999;
         }
         if(applyDisCount(brand)){
             this.price=this.price*0.95;
@@ -49,7 +53,7 @@ public class Tablet extends ElectronicDevice implements Warranty, CampaignApplic
         String changeablePencilNib= ischangeablePencilNib ? "Yes" : "No";
         return  "\nTABLET"+
                  super.toString()+
-                "\nScreen Size : "+this.screenSize+
+                "\nScreen Size : "+this.screenSize+" inch"+
                 "\nTablet's Pencil Type : "+pencil.getPencilType()+
                 "\nIs the tablet's nib changeable ? : " + changeablePencilNib+
                 "\nThe Price of Tablet is "+calculatePrice()+" TL";

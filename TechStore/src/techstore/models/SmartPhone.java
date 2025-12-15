@@ -25,7 +25,7 @@ public class SmartPhone extends ElectronicDevice implements Warranty, CampaignAp
         @Override
     public boolean applyDisCount(String brand) {
         return switch(brand){
-            case "Samsung","Huawei","Nokia" ->true;
+            case "Samsung","Huawei"->true;
                 default-> false;
         };
     }
@@ -33,10 +33,10 @@ public class SmartPhone extends ElectronicDevice implements Warranty, CampaignAp
     @Override
     public double calculatePrice() {
         switch(this.brand){
-            case "Apple" -> this.price=100000;
-            case "Samsung"-> this.price=80000;
-            case "Huawei" -> this.price=60000;
-            case "Nokia"->this.price=40000;
+            case "Apple" -> this.price=90199;
+            case "Samsung"-> this.price=53999;
+            case "Huawei" -> this.price=59999;
+            case "Honor"->this.price=36999;
             
         }
         if(applyDisCount(brand)){

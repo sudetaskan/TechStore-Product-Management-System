@@ -7,7 +7,7 @@ public class NfcModule {
     
     public boolean  hasNfcModule(String brand){
         return switch(brand){
-            case "Apple","Samsung"-> true;
+            case "Apple","Samsung","Honor"-> true;
                 default->false;
         };
         
