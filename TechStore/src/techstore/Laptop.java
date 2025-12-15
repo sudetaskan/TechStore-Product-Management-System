@@ -4,7 +4,7 @@ package techstore;
  *
  * @author Beyza
  */
-public class Laptop extends ElectronicDevice implements Warranty, CampaignApplicable {
+public class Laptop extends ElectronicDevice implements Warrantity, CampaignApplicable {
 
     private int ramSize, cpu;
     protected FanCount fanCount;
@@ -16,7 +16,6 @@ public class Laptop extends ElectronicDevice implements Warranty, CampaignApplic
         super(brand, model, serialNum, price);
         this.ramSize = ramSize;
         this.cpu = cpu;
-        this.fanCount=new FanCount();
     }
 
     @Override
@@ -60,7 +59,7 @@ public class Laptop extends ElectronicDevice implements Warranty, CampaignApplic
 
     @Override
     public void warrantityPeriod(int period) {
-        period = Laptop.STANDART_PERIOD2 + (int) (this.price / 15000);
+        period = Laptop.STANDART_PERİOD2 + (int) (this.price / 15000);
         System.out.printf("The warranty period for %s branded laptop models is %d months.", this.brand, period);
     }
 
