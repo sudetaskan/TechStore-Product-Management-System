@@ -52,7 +52,7 @@ public class Laptop extends ElectronicDevice implements Warranty, CampaignApplic
     public String toString() {
         return  "\nLAPTOP"
                 +super.toString()
-                + "\nRam Size : " + this.ramSize
+                + "\nRam Size : " + this.ramSize+ " GB"
                 + "\nCPU : " + this.cpu
                 + "\nLaptop's Fan Count : " + fanCount.numberFanCount(brand)
                 + "\nThe Price of Laptop is "+calculatePrice()+" TL";
