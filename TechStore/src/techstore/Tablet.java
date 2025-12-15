@@ -13,7 +13,7 @@ public class Tablet extends ElectronicDevice implements Warranty, CampaignApplic
         
     }
 
-    public Tablet(double screenSize, String brand, String model, String serialNum, double price) {
+    public Tablet(String brand, String model, String serialNum, double price,double screenSize) {
         super(brand, model, serialNum, price);
         this.screenSize = screenSize;
     }
