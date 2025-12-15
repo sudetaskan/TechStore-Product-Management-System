@@ -1,6 +1,6 @@
 package techstore;
 
-public class SmartPhone extends ElectronicDevice implements Warrantity, CampaignApplicable{
+public class SmartPhone extends ElectronicDevice implements Warranty, CampaignApplicable{
 
     private boolean is5G;
     protected NfcModule nfcModule;
@@ -53,7 +53,7 @@ public class SmartPhone extends ElectronicDevice implements Warrantity, Campaign
     }
 
     @Override
-    public void warrantityPeriod(int period) {
+    public void warrantyPeriod(int period) {
 
         period = SmartPhone.STANDART_PERIOD3 + (int) (this.price / 10000);
 
