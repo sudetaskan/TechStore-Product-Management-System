@@ -10,13 +10,14 @@ import techstore.interfaces.CampaignApplicable;
  */
 public class Laptop extends ElectronicDevice implements Warranty, CampaignApplicable {
 
-    private int ramSize, cpu,ssd;
+    private int ramSize,ssd;
+    private String cpu;
     protected FanCount fanCount;
 
     public Laptop() {
     }
 
-    public Laptop(String brand, String model, String serialNum, double price, int ramSize, int cpu,int ssd) {
+    public Laptop(String brand, String model, String serialNum, double price, int ramSize, String cpu,int ssd) {
         super(brand, model, serialNum, price);
         this.ramSize = ramSize;
         this.cpu = cpu;
@@ -24,6 +25,7 @@ public class Laptop extends ElectronicDevice implements Warranty, CampaignApplic
         this.fanCount=new FanCount();
     }
 
+    
     @Override
     public boolean applyDisCount(String brand) {
         return switch (brand) {
@@ -51,6 +53,22 @@ public class Laptop extends ElectronicDevice implements Warranty, CampaignApplic
        }
        
         return this.price;
+    }
+
+    public int getRamSize() {
+        return ramSize;
+    }
+
+    public String getCpu() {
+        return cpu;
+    }
+
+    public int getSsd() {
+        return ssd;
+    }
+
+    public FanCount getFanCount() {
+        return fanCount;
     }
 
     @Override

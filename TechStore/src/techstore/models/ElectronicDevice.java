@@ -18,6 +18,11 @@ public abstract class ElectronicDevice {
         this.serialNum=serialNum;
         this.price = price;
     }
+
+    public String getSerialNum() {
+        return serialNum;
+    }
+    
     
     public abstract double calculatePrice();
     @Override
