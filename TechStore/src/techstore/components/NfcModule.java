@@ -9,9 +9,11 @@ public class NfcModule {
         return switch(brand){
             case "Apple","Samsung","Honor"-> true;
                 default->false;
+                    
         };
-        
+       
         
     }
     
-}
+}   
+                                        
