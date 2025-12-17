@@ -1,4 +1,3 @@
-
 package techstore;
 
 import java.util.ArrayList;
@@ -13,10 +12,10 @@ import techstore.models.Tablet;
  */
 public class SystemClass {
 
-    /**
-     * @param args the command line arguments
-     */
-    private static int stockAmount_L = 4, stockAmount_T = 4, stockAmount_S = 4;
+   
+    private static int stockAmount_L = 0;
+    private static int stockAmount_T = 0;
+    private static int stockAmount_S = 0;
 
     public static int getStockAmount_L() {
         return stockAmount_L;
@@ -30,10 +29,19 @@ public class SystemClass {
         return stockAmount_S;
     }
 
+   
+    private static void updateStock(ElectronicDevice device, int amount) {
+        if (device instanceof Laptop) {
+            stockAmount_L += amount;
+        } else if (device instanceof Tablet) {
+            stockAmount_T += amount;
+        } else if (device instanceof SmartPhone) {
+            stockAmount_S += amount;
+        }
+    }
+
     
-
     public static void addDevice(ArrayList<ElectronicDevice> deviceList) {
-
         //Device:Laptops
         deviceList.add(new Laptop("Apple", "MacBook Pro 14.2\\Space Black", "MDE04TU/A", 94999, 16, "Apple M5 (10 Core CPU/GPU)", 512));
         deviceList.add(new Laptop("Dell", "Inspiron 3530 FHD 15.6\\Black", "I3530122024U12", 57999, 64, "Intel Core i5-1334U", 1024));
@@ -54,66 +62,14 @@ public class SystemClass {
 
     }
 
-    public static void deleteManual(ArrayList<ElectronicDevice> deviceList, int index) {
-
-        if (index < 0 || index >= deviceList.size()) {
-            return;
-        }
-
-        ArrayList<ElectronicDevice> newList = new ArrayList<>();
-
-        for (int i = 0; i < deviceList.size(); i++) {
-            if (i != index) {
-                newList.add(deviceList.get(i));
-            }
-        }
-        deviceList = newList;
-    }
-
-    public static ElectronicDevice searchRecursive(ArrayList<ElectronicDevice> deviceList,
-            String serialNum, int index) {
-        if (index >= deviceList.size()) {
-            return null;
-        }
-
-        if (deviceList.get(index).getSerialNum().equals(serialNum)) {
-            return deviceList.get(index);
-        }
-
-        return searchRecursive(deviceList, serialNum, index + 1);
-    }
-
-    public static ElectronicDevice searchRecursiveHelper(ArrayList<ElectronicDevice> deviceList,
-            String serialNum) {
-        return searchRecursive(deviceList, serialNum, 0);
-    }
-
-    public static void displayRecursiveHelper(ArrayList<ElectronicDevice> deviceList) {
-        displayRecursive(deviceList, 0);
-    }
-
-    public static void displayRecursive(ArrayList<ElectronicDevice> deviceList, int index) {
-
-        
-        if (index >= deviceList.size()) {
-            return;
-        }
-
-      
-        System.out.println(deviceList.get(index).toString());
-        System.out.println();
-
-        
-        displayRecursive(deviceList, index + 1);
-    }
-
-    public static void addDeviceForManager(String serialNum) {
-
+    
+    private static void addToSystem(ArrayList<ElectronicDevice> list, ElectronicDevice device) {
+        list.add(device);
+        updateStock(device, 1); 
     }
 
     public static void main(String[] args) {
-        ArrayList<ElectronicDevice> deviceList = new ArrayList<>();
-
+       ArrayList<ElectronicDevice> deviceList = new ArrayList<>();
         SystemClass.addDevice(deviceList);
 
     }
