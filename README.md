@@ -82,25 +82,25 @@ Secure Access: The system begins with a secure login interface to verify credent
 * **Role-Based Routing:** Users are automatically redirected to either the ManagerFrame or PersonalFrame based on their authorization level (Manager or Staff), ensuring task-specific environments.
 
 **5.2. Category-Based Filtering (JComboBox)**
-![Staff Category Filter](05_staff_category_filter.png)
+<img src="05_staff_category_filter.png" width="600">
 * **Dynamic Categorization:** Utilizing a JComboBox, users can effortlessly switch between hardware categories: Laptops, Tablets, and Smartphones.
 
 * **Comprehensive Overview:** The "All Of Them" selection triggers the recursive display algorithm to present the entire inventory in a single view.
 
 **5.3. Interactive Operation Flow (JRadioButtons)**
-![Manager Operations](manager_add_logic.png)
+<img src="02_manager_add_logic.png" width="600">
 * **Adaptive UI:** To maintain a clutter-free workspace, the system uses dynamic visibility logic. Input fields, such as SerialText, and instruction labels remain hidden by default.
 
 * **Task-Specific Activation:** Relevant components and action-oriented labels only become visible once a specific operation (Add, Search, or Delete) is activated via the JRadioButtons.
 
 **5.4. Real-Time Data Display**
-![Inventory Display](03_inventory_listing.png)
+<img src="03_inventory_listing.png" width="600">
 * **Formatted Output:** Inventory data is rendered in a clean, formatted string format within a JTextArea.
 
 * **Navigational Ease:** The output area is integrated with a JScrollPane, enabling vertical and horizontal navigation for large datasets, ensuring no information is cut off.
 
 **5.5. Consistent Design & UX**
-![Staff Interface](04_staff_interface.png)
+<img src="04_staff_interface.png" width="600">
 * **Fixed Dimensions:** The application window is set to a fixed size to prevent layout distortion and ensure a uniform experience on different screens.
 
 * **Auto-Centering:** The frames are programmed to initialize at the center of the user's monitor, providing a professional look and feel from the first launch.
