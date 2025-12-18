@@ -1,20 +1,21 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package techstore.gui;
 
-/**
- *
- * @author Beyza
- */
+import java.util.ArrayList;
+import techstore.SystemClass;
+import techstore.models.ElectronicDevice;
+
 public class PersonalFrame extends javax.swing.JFrame {
 
-    /**
-     * Creates new form PersonalFrame
-     */
+    ArrayList<ElectronicDevice> deviceList = new ArrayList<>();
+
     public PersonalFrame() {
         initComponents();
+        SystemClass.addDevice(deviceList);
+        MessageofLabel.setVisible(false);
+        SerialLabel.setVisible(false);
+        SerialText.setVisible(false);
+        DisplayTextArea.setVisible(false);
+        ScrollPane.setVisible(false);
     }
 
     /**
@@ -32,10 +33,21 @@ public class PersonalFrame extends javax.swing.JFrame {
         DeleteRbBtn = new javax.swing.JRadioButton();
         SearchRbBtn = new javax.swing.JRadioButton();
         DisplayRbBtn = new javax.swing.JRadioButton();
+        SerialLabel = new javax.swing.JLabel();
+        SerialText = new javax.swing.JTextField();
+        MessageofLabel = new javax.swing.JLabel();
+        ScrollPane = new javax.swing.JScrollPane();
+        DisplayTextArea = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        DeviceTypeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Laptop", "Tablet", "Smartphone" }));
+        DeviceTypeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Laptop", "Tablet", "Smartphone", "All Of Them" }));
+        DeviceTypeComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DeviceTypeComboBoxActionPerformed(evt);
+            }
+        });
 
         FunctionGroups.add(DeleteRbBtn);
         DeleteRbBtn.setText("Product Delete");
@@ -61,6 +73,20 @@ public class PersonalFrame extends javax.swing.JFrame {
             }
         });
 
+        SerialLabel.setText("Enter the serial number of the product :");
+
+        SerialText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SerialTextActionPerformed(evt);
+            }
+        });
+
+        ScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+
+        DisplayTextArea.setColumns(20);
+        DisplayTextArea.setRows(5);
+        ScrollPane.setViewportView(DisplayTextArea);
+
         javax.swing.GroupLayout PersonalPanelLayout = new javax.swing.GroupLayout(PersonalPanel);
         PersonalPanel.setLayout(PersonalPanelLayout);
         PersonalPanelLayout.setHorizontalGroup(
@@ -72,38 +98,46 @@ public class PersonalFrame extends javax.swing.JFrame {
                     .addComponent(DeleteRbBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(SearchRbBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(DisplayRbBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE))
-                .addContainerGap(782, Short.MAX_VALUE))
+                .addGap(231, 231, 231)
+                .addGroup(PersonalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PersonalPanelLayout.createSequentialGroup()
+                        .addComponent(SerialLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(SerialText, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(MessageofLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 529, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(96, Short.MAX_VALUE))
         );
         PersonalPanelLayout.setVerticalGroup(
             PersonalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PersonalPanelLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(DeviceTypeComboBox)
-                .addGap(54, 54, 54)
-                .addComponent(DeleteRbBtn)
+                .addGroup(PersonalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PersonalPanelLayout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(DeviceTypeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(PersonalPanelLayout.createSequentialGroup()
+                        .addGap(47, 47, 47)
+                        .addGroup(PersonalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(SerialLabel)
+                            .addComponent(SerialText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGroup(PersonalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PersonalPanelLayout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addComponent(MessageofLabel))
+                    .addGroup(PersonalPanelLayout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addComponent(DeleteRbBtn)))
                 .addGap(18, 18, 18)
-                .addComponent(SearchRbBtn)
-                .addGap(18, 18, 18)
-                .addComponent(DisplayRbBtn)
-                .addGap(482, 482, 482))
+                .addGroup(PersonalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PersonalPanelLayout.createSequentialGroup()
+                        .addComponent(SearchRbBtn)
+                        .addGap(18, 18, 18)
+                        .addComponent(DisplayRbBtn))
+                    .addComponent(ScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 519, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(132, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(PersonalPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(PersonalPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+        getContentPane().add(PersonalPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
         setLocationRelativeTo(null);
@@ -111,42 +145,81 @@ public class PersonalFrame extends javax.swing.JFrame {
 
     private void DeleteRbBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteRbBtnActionPerformed
         // TODO add your handling code here:
-        String item = DeviceTypeComboBox.getSelectedItem().toString();
-        if(item=="Laptop"){
-            //switch(){}
 
-        }else if(item=="Tablet"){
-            //switch{}
-        }else{
-            //switch{}
-        }
+        SerialLabel.setVisible(true);
+        SerialText.setVisible(true);
+        SerialText.setText("");
+        MessageofLabel.setText("");
+        MessageofLabel.setVisible(false);
+        String serialNum = SerialText.getText().trim();
+
+
     }//GEN-LAST:event_DeleteRbBtnActionPerformed
 
     private void SearchRbBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchRbBtnActionPerformed
         // TODO add your handling code here:
-        String item=DeviceTypeComboBox.getSelectedItem().toString();
-        if(item=="Laptop"){
-            //switch(){}
-
-        }else if(item=="Tablet"){
-            //switch{}
-        }else{
-            //switch{}
-        }
+        SerialLabel.setVisible(true);
+        SerialText.setVisible(true);
+        SerialText.setText("");
+        MessageofLabel.setText("");
+        MessageofLabel.setVisible(false);
     }//GEN-LAST:event_SearchRbBtnActionPerformed
 
     private void DisplayRbBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DisplayRbBtnActionPerformed
         // TODO add your handling code here:
-        String item=DeviceTypeComboBox.getSelectedItem().toString();
-        if(item=="Laptop"){
-            //switch(){}
+        SerialLabel.setVisible(false);
+        SerialText.setVisible(false);
+        MessageofLabel.setVisible(false);
 
-        }else if(item=="Tablet"){
-            //switch{}
-        }else{
-            //switch{}
-        }
+        DisplayTextArea.setVisible(true);
+        ScrollPane.setVisible(true);
+
+        DisplayTextArea.setText(SystemClass.displayDevices(deviceList));
+
+
     }//GEN-LAST:event_DisplayRbBtnActionPerformed
+
+    private void DeviceTypeComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeviceTypeComboBoxActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_DeviceTypeComboBoxActionPerformed
+
+    private void SerialTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SerialTextActionPerformed
+        // TODO add your handling code here:
+        String serialNum = SerialText.getText().trim();
+        if (DeleteRbBtn.isSelected()) {
+            if (serialNum.isEmpty()) {
+                MessageofLabel.setText("Please enter a serial number!");
+                return;
+            }
+            MessageofLabel.setVisible(true);
+            ElectronicDevice ex = SystemClass.searchDevice(deviceList, serialNum);
+            if (ex != null) {
+                SystemClass.deleteDevice(deviceList, serialNum);
+                MessageofLabel.setText("Product deleted successfully");
+            } else {
+                MessageofLabel.setText("No products matching the serial number you entered were found.");
+            }
+
+        } else if (SearchRbBtn.isSelected()) {
+            if (serialNum.isEmpty()) {
+                MessageofLabel.setText("Please enter a serial number!");
+                return;
+            }
+
+            MessageofLabel.setVisible(true);
+            ElectronicDevice ex = SystemClass.searchDevice(deviceList, serialNum);
+            if (ex != null) {
+                DisplayTextArea.setVisible(true);
+                ScrollPane.setVisible(true);
+                MessageofLabel.setText("Product successfully founded");
+                DisplayTextArea.setText(SystemClass.searchDisplay(ex));
+            } else {
+                MessageofLabel.setText("No products matching the serial number you entered were found.");
+            }
+
+        }
+    }//GEN-LAST:event_SerialTextActionPerformed
 
     /**
      * @param args the command line arguments
@@ -174,6 +247,9 @@ public class PersonalFrame extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(PersonalFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -187,8 +263,13 @@ public class PersonalFrame extends javax.swing.JFrame {
     private javax.swing.JRadioButton DeleteRbBtn;
     private javax.swing.JComboBox<String> DeviceTypeComboBox;
     private javax.swing.JRadioButton DisplayRbBtn;
+    private javax.swing.JTextArea DisplayTextArea;
     private javax.swing.ButtonGroup FunctionGroups;
+    private javax.swing.JLabel MessageofLabel;
     private javax.swing.JPanel PersonalPanel;
+    private javax.swing.JScrollPane ScrollPane;
     private javax.swing.JRadioButton SearchRbBtn;
+    private javax.swing.JLabel SerialLabel;
+    private javax.swing.JTextField SerialText;
     // End of variables declaration//GEN-END:variables
 }

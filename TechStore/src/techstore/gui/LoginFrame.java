@@ -4,6 +4,8 @@
  */
 package techstore.gui;
 
+import java.awt.Color;
+
 /**
  *
  * @author Beyza
@@ -65,6 +67,14 @@ public class LoginFrame extends javax.swing.JFrame {
 
         LoginButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         LoginButton.setText("LOGIN");
+        LoginButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                LoginButtonMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                LoginButtonMousePressed(evt);
+            }
+        });
         LoginButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 LoginButtonActionPerformed(evt);
@@ -164,6 +174,15 @@ public class LoginFrame extends javax.swing.JFrame {
              personelFrame.setVisible(true);
         }
     }//GEN-LAST:event_LoginButtonActionPerformed
+
+    private void LoginButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LoginButtonMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_LoginButtonMouseClicked
+
+    private void LoginButtonMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LoginButtonMousePressed
+        // TODO add your handling code here:
+        LoginButton.setBackground(new java.awt.Color(165, 214, 167));
+    }//GEN-LAST:event_LoginButtonMousePressed
 
     /**
      * @param args the command line arguments
