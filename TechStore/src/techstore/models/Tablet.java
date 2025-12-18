@@ -5,10 +5,6 @@ import techstore.components.Pencil;
 import techstore.interfaces.Warranty;
 import techstore.interfaces.CampaignApplicable;
 
-/**
- *
- * @author Beyza
- */
 public class Tablet extends ElectronicDevice implements Warranty, CampaignApplicable{
     private double screenSize;
     protected Pencil pencil;

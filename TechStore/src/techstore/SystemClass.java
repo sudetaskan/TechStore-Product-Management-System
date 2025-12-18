@@ -6,10 +6,6 @@ import techstore.models.Laptop;
 import techstore.models.SmartPhone;
 import techstore.models.Tablet;
 
-/**
- *
- * @author SUDE TAŞKAN
- */
 public class SystemClass {
 
     private static int stockAmount_L = 0;
