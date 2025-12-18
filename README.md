@@ -14,31 +14,63 @@ To ensure security, the application uses a login system with two different acces
 This project is built using **Java** and strictly follows **Object-Oriented Programming (OOP)** principles. Below are the key technical details:
 
 ### 1. Inheritance Hierarchy
-We created a main abstract class called `ElectronicDevice`. This class defines the common structure for all products. It holds the following common attributes:
-* **Brand**
-* **Model**
-* **Price**
-* **Serial Number**
+The project relies on a robust **Inheritance** structure to ensure **Code Reusability** and maintainability.
 
-We have three subclasses derived from this superclass:
-* `Laptop`
-* `SmartPhone`
-* `Tablet`
+**Abstract Superclass: `ElectronicDevice`**
+* **Abstraction:** This class serves as the **abstract blueprint** for all items and cannot be instantiated directly.
+* **Encapsulation:** It encapsulates common `protected` attributes shared by all devices: `brand`, `model`, `serialNum`, and `price`.
+* **Polymorphism:** It defines the abstract method `calculatePrice()`. This enforces **Method Overriding**, compelling each subclass to implement its own unique pricing logic.
+
+**Concrete Subclasses (Specialization)**
+We extended the superclass into three **Concrete Classes**, each adding specific features:
+
+* **Laptop:** Extends the structure with hardware specifications like `ramSize`, `cpu`, and `ssd`.
+* **Tablet:** Specializes the device by adding a `screenSize` attribute for display dimensions.
+* **SmartPhone:** Includes a specific `is5G` attribute to track network connectivity support.
 
 ### 2. Composition (Has-a Relationship)
-To make the project more realistic, we used composition. Each device category has a specific component object inside it:
-* **Laptop** has a `FanCount` component.
-* **SmartPhone** has an `NfcModule` component.
-* **Tablet** has a `Pencil` component.
+To adhere to advanced OOP standards, we implemented **Composition** instead of relying solely on inheritance. 
+Each device class contains a specific component object from the `techstore.components` package to handle specialized operations.
 
-### 3. Interface
-We defined an interface named `Warrantity`.
-* It includes the `warrantyPeriod(int)` method.
-* Selected devices implement this interface to set or update their warranty periods.
+* **Laptop & FanCount:** The `Laptop` class has a `FanCount` object.
+  This component uses the `numberFanCount()` method to determine the cooling requirements based on the brand.
+* **Tablet & Pencil:** The `Tablet` class includes a `Pencil` object.
+  This component manages stylus features, checking for nib changeability via `isChangeablePencilNib()` and storing the specific `pencilType` (e.g., Apple Pencil, S Pen).
+* **SmartPhone & NfcModule:** The `SmartPhone` class utilizes an `NfcModule` object.
+  This component validates the presence of Near Field Communication technology using the `hasNfcModule()` method.
 
-### 4. Data Structures & Algorithms
-* **Data Management:** All operations are handled by the `SystemClass`.
-* **Storage:** We use a dynamic `ArrayList` to store the device objects.
-* **Recursion:** We used **recursive methods** to search for products by serial number and to display the list of products.
+### 3. Interfaces
+To manage business logic and ensure modularity, we implemented two key interfaces in the `techstore.interfaces` package.
+
+* **Warranty:** This interface defines standard warranty constants (e.g., 36 months for Laptops, 12 months for Tablets).
+  It enforces the implementation of the `warrantyPeriod()` method, allowing each device to calculate its specific warranty duration based on these standards.
+* **CampaignApplicable:** This interface facilitates marketing logic. It includes the `applyDisCount(String brand)` method, which determines whether a specific brand is eligible for a price reduction.
+
+### 4. Core System Architecture & Algorithms
+The `SystemClass` serves as the central engine (Controller) of the application, managing the entire lifecycle of the inventory. It handles data storage, stock tracking, and complex algorithmic operations without relying on external databases.
+
+ **4.1. Dynamic Data Management (Polymorphism)**
+* **Storage Mechanism:** We utilize a single dynamic `ArrayList` to store all inventory items.
+* **Polymorphic Design:** Thanks to inheritance, this list can hold `Laptop`, `Tablet`, and `SmartPhone` objects simultaneously, treating them as generic `ElectronicDevice` objects while preserving their specific behaviors.
+
+ **4.2. Smart Stock Tracking**
+The system implements a real-time tracking mechanism using `static` variables to maintain stock counts globally across the application.
+* **Type-Safe Updates:** The `updateStock` method automatically detects the device type using the `instanceof` operator. It then updates the specific counter (`stockAmount_L`, `stockAmount_T`, or `stockAmount_S`) accordingly.
+* **Validation Logic:** The system includes safety checks to prevent data corruption. For example, it prevents the stock count from dropping below zero if a user tries to delete a non-existent item.
+
+ **4.3. Categorized Insertion Strategy (Sorted Logic)**
+Unlike standard addition methods that simply append items to the end of a list, our `addDeviceForManager` method employs a **Categorized Insertion Algorithm**.
+* **Logic:** When a manager adds a new device, the system calculates the correct index based on the device type.
+    * **Laptops** are inserted at the top.
+    * **Tablets** are inserted after laptops.
+    * **Smartphones** are appended at the end.
+* **Benefit:** This ensures the inventory list remains organized by category automatically, without needing a separate sorting algorithm.
+
+ **4.4. Recursive Algorithms**
+To demonstrate advanced algorithmic proficiency, we replaced standard iterative loops with **Recursive Methods** for key operations:
+* **Recursive Search (`searchRecursive`):** Searches the list index-by-index to find a product by its unique serial number. If found, it returns the object; otherwise, it calls itself for the next index.
+* **Recursive Delete (`deleteRecursive`):** Locates a product by serial number recursively, removes it from the list, and triggers the stock update method to decrease the count.
+* **Recursive Display (`displayRecursive`):** Traverses the entire list recursively to build a formatted string representation of the inventory.
   
-## 🖥️ Graphical User Interface (GUI)
+### 5. Graphical User Interface (GUI)🖥️ 
+We developed the user interface using the **Java Swing** library. The application is designed with a multi-frame architecture to separate user roles and functionalities effectively.
