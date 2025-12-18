@@ -82,7 +82,7 @@ Secure Access: The system begins with a secure login interface to verify credent
 * **Role-Based Routing:** Users are automatically redirected to either the ManagerFrame or PersonalFrame based on their authorization level (Manager or Staff), ensuring task-specific environments.
 
 **5.2. Category-Based Filtering (JComboBox)**
-![Staff Category Filter](images/06_staff_category_filter.png)
+![Staff Category Filter](images/05_staff_category_filter.png)
 * **Dynamic Categorization:** Utilizing a JComboBox, users can effortlessly switch between hardware categories: Laptops, Tablets, and Smartphones.
 
 * **Comprehensive Overview:** The "All Of Them" selection triggers the recursive display algorithm to present the entire inventory in a single view.
