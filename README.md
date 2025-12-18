@@ -76,7 +76,7 @@ To demonstrate advanced algorithmic proficiency, we replaced standard iterative 
 We developed the user interface using the **Java Swing** library. The application is designed with a multi-frame architecture to separate user roles and functionalities effectively.
 
 **5.1. Multi-Frame Navigation**
-![Login Screen](01_login_interface.png)
+<img src="01_login_interface.png" width="500">
 Secure Access: The system begins with a secure login interface to verify credentials.
 
 * **Role-Based Routing:** Users are automatically redirected to either the ManagerFrame or PersonalFrame based on their authorization level (Manager or Staff), ensuring task-specific environments.
