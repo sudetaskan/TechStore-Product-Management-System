@@ -1,10 +1,6 @@
 
 package techstore.models;
 
-/**
- *
- * @author Beyza
- */
 public abstract class ElectronicDevice {
     protected String brand,model,serialNum;
     protected double price;

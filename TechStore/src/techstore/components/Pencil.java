@@ -1,10 +1,6 @@
 
 package techstore.components;
 
-/**
- *
- * @author Beyza
- */
 public class Pencil {
     private String pencilType;
     public boolean isChangeablePencilNib(String brand){

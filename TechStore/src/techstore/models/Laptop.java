@@ -4,10 +4,6 @@ import techstore.components.FanCount;
 import techstore.interfaces.Warranty;
 import techstore.interfaces.CampaignApplicable;
 
-/**
- *
- * @author Beyza
- */
 public class Laptop extends ElectronicDevice implements Warranty, CampaignApplicable {
 
     private int ramSize,ssd;

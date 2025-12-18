@@ -1,10 +1,6 @@
 
 package techstore.interfaces;
 
-/**
- *
- * @author Beyza
- */
 public interface Warranty {
     public static final int STANDART_PERIOD1=12;  // the value for tablet
     public static final int STANDART_PERIOD2=36;  // the value for laptop
