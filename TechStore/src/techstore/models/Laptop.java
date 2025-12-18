@@ -79,14 +79,15 @@ public class Laptop extends ElectronicDevice implements Warranty, CampaignApplic
                 + "\nSSD : " + this.ssd + " GB"
                 + "\nCPU : " + this.cpu
                 + "\nLaptop's Fan Count : " + fanCount.numberFanCount(brand)
+                + "\nLaptop's Warranty Period : "+ warrantyPeriod()+" months"
                 + "\nThe Price of Laptop is " + calculatePrice() + " TL";
 
     }
 
     @Override
-    public void warrantyPeriod(int period) {
-        period = Laptop.STANDART_PERIOD2 + (int) (this.price / 15000);
-        System.out.printf("The warranty period for %s branded laptop models is %d months.", this.brand, period);
+    public int warrantyPeriod() {
+        int period = Laptop.STANDART_PERIOD2 + (int) (this.price / 15000);
+        return period;
     }
 
 }

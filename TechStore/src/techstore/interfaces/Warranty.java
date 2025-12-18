@@ -10,5 +10,5 @@ public interface Warranty {
     public static final int STANDART_PERIOD2=36;  // the value for laptop
     public static final int STANDART_PERIOD3=24;  // the value for smartphone
     
-    public abstract void warrantyPeriod(int period);
+    public abstract int warrantyPeriod();
 }

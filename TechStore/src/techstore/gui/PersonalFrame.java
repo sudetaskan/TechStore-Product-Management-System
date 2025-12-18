@@ -10,7 +10,10 @@ public class PersonalFrame extends javax.swing.JFrame {
 
     public PersonalFrame() {
         initComponents();
+        // Loads data from SystemClass
         SystemClass.addDevice(deviceList);
+        
+        // Sets initial visibility of components
         MessageofLabel.setVisible(false);
         SerialLabel.setVisible(false);
         SerialText.setVisible(false);
@@ -144,31 +147,34 @@ public class PersonalFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void DeleteRbBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteRbBtnActionPerformed
-        // TODO add your handling code here:
-
+        // Prepares UI for the operation
         SerialLabel.setVisible(true);
         SerialText.setVisible(true);
         SerialText.setText("");
+        
         MessageofLabel.setText("");
         MessageofLabel.setVisible(false);
+        
         String serialNum = SerialText.getText().trim();
 
 
     }//GEN-LAST:event_DeleteRbBtnActionPerformed
 
     private void SearchRbBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchRbBtnActionPerformed
-        // TODO add your handling code here:
+        // Prepares UI for the operation
         SerialLabel.setVisible(true);
         SerialText.setVisible(true);
         SerialText.setText("");
+        
         MessageofLabel.setText("");
         MessageofLabel.setVisible(false);
     }//GEN-LAST:event_SearchRbBtnActionPerformed
 
     private void DisplayRbBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DisplayRbBtnActionPerformed
-        // TODO add your handling code here:
+        // Calls SystemClass to display all devices
         SerialLabel.setVisible(false);
         SerialText.setVisible(false);
+        
         MessageofLabel.setVisible(false);
 
         DisplayTextArea.setVisible(true);
@@ -188,13 +194,16 @@ public class PersonalFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         String serialNum = SerialText.getText().trim();
         if (DeleteRbBtn.isSelected()) {
+            // Input Validation: Checks if input is empty
             if (serialNum.isEmpty()) {
                 MessageofLabel.setText("Please enter a serial number!");
                 return;
             }
             MessageofLabel.setVisible(true);
+            // Search Logic: Checks if the device exists
             ElectronicDevice ex = SystemClass.searchDevice(deviceList, serialNum);
             if (ex != null) {
+                // Delete Logic: Removes device via SystemClass
                 SystemClass.deleteDevice(deviceList, serialNum);
                 MessageofLabel.setText("Product deleted successfully");
             } else {
@@ -202,17 +211,19 @@ public class PersonalFrame extends javax.swing.JFrame {
             }
 
         } else if (SearchRbBtn.isSelected()) {
+            // Input Validation
             if (serialNum.isEmpty()) {
                 MessageofLabel.setText("Please enter a serial number!");
                 return;
             }
-
             MessageofLabel.setVisible(true);
+            // Search and Display Logic
             ElectronicDevice ex = SystemClass.searchDevice(deviceList, serialNum);
             if (ex != null) {
                 DisplayTextArea.setVisible(true);
                 ScrollPane.setVisible(true);
                 MessageofLabel.setText("Product successfully founded");
+                // Shows specific device details
                 DisplayTextArea.setText(SystemClass.searchDisplay(ex));
             } else {
                 MessageofLabel.setText("No products matching the serial number you entered were found.");

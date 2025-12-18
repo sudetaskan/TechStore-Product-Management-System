@@ -50,12 +50,9 @@ public class SmartPhone extends ElectronicDevice implements Warranty, CampaignAp
     }
 
     @Override
-    public void warrantyPeriod(int period) {
-
-        period = SmartPhone.STANDART_PERIOD3 + (int) (this.price / 10000);
-
-        System.out.printf("The warranty period for %s branded smartphone models is %d months.", this.brand, period);
-
+    public int warrantyPeriod() {
+        int period = SmartPhone.STANDART_PERIOD3 + (int) (this.price / 15000);
+        return period;
     }
 
     @Override
@@ -69,6 +66,7 @@ public class SmartPhone extends ElectronicDevice implements Warranty, CampaignAp
                 + super.toString()
                 + "\nIs the smartphone's 5G ? : " + has5GState
                 + "\nIs the smartphone's nfc module ? : " + nfcState
+                + "\nSmartphone's Warranty Period : "+ warrantyPeriod()+" months"
                 + "\nThe Price of Smartphone is " + calculatePrice() + " TL";
 
     }

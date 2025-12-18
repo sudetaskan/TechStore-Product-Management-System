@@ -57,14 +57,15 @@ public class Tablet extends ElectronicDevice implements Warranty, CampaignApplic
                 "\nScreen Size : "+this.screenSize+" inch"+
                 "\nTablet's Pencil Type : "+pencil.getPencilType()+
                 "\nIs the tablet's nib changeable ? : " + changeablePencilNib+
+                "\nTablet's Warranty Period : "+ warrantyPeriod()+" months"+
                 "\nThe Price of Tablet is "+calculatePrice()+" TL";
         
     }
 
     @Override
-    public void warrantyPeriod(int period) {
-        period=Tablet.STANDART_PERIOD1 + (int)(this.price/10000);
-        System.out.printf("The warranty period for %s branded tablet models is %d months.",this.brand,period);
+    public int warrantyPeriod() {
+        int period = Tablet.STANDART_PERIOD1 + (int) (this.price / 15000);
+        return period;
     }
 
     
