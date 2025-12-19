@@ -141,7 +141,7 @@ public class LoginFrame extends javax.swing.JFrame {
         char c = evt.getKeyChar();
         String password = new String(UserPassword.getPassword());
 
-        if (password.length() > 4 && c != java.awt.event.KeyEvent.VK_BACK_SPACE) {
+        if (password.length() >=4 && c != java.awt.event.KeyEvent.VK_BACK_SPACE) {
             evt.consume();  }
 
         if (!Character.isDigit(c) && c != java.awt.event.KeyEvent.VK_BACK_SPACE) {
@@ -153,7 +153,7 @@ public class LoginFrame extends javax.swing.JFrame {
     private void LoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginButtonActionPerformed
         // TODO add your handling code here:
         /*
-         Manager Password for store is 1234
+         Manager Password for store is 1234S
          Personal Password for store is 4321
         */
         

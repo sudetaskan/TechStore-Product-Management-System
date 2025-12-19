@@ -12,7 +12,7 @@ public class PersonalFrame extends javax.swing.JFrame {
         initComponents();
         // Loads data from SystemClass
         SystemClass.addDevice(deviceList);
-        
+
         // Sets initial visibility of components
         MessageofLabel.setVisible(false);
         SerialLabel.setVisible(false);
@@ -147,40 +147,53 @@ public class PersonalFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void DeleteRbBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteRbBtnActionPerformed
-        // Prepares UI for the operation
+        clearUI();
+       // Prepares UI for the operation
         SerialLabel.setVisible(true);
         SerialText.setVisible(true);
         SerialText.setText("");
-        
+
         MessageofLabel.setText("");
         MessageofLabel.setVisible(false);
-        
+
         String serialNum = SerialText.getText().trim();
+        this.revalidate();// Trigger the layout manager to recalculate the component hierarchy
+        this.repaint();// Force a redraw of the frame to immediately reflect visibility changes
 
 
     }//GEN-LAST:event_DeleteRbBtnActionPerformed
 
     private void SearchRbBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchRbBtnActionPerformed
+        clearUI();
         // Prepares UI for the operation
         SerialLabel.setVisible(true);
         SerialText.setVisible(true);
         SerialText.setText("");
-        
+
         MessageofLabel.setText("");
         MessageofLabel.setVisible(false);
+        this.revalidate();// Trigger the layout manager to recalculate the component hierarchy
+        this.repaint();// Force a redraw of the frame to immediately reflect visibility changes
+
     }//GEN-LAST:event_SearchRbBtnActionPerformed
 
     private void DisplayRbBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DisplayRbBtnActionPerformed
-        // Calls SystemClass to display all devices
+        clearUI();
+// Calls SystemClass to display all devices
         SerialLabel.setVisible(false);
         SerialText.setVisible(false);
-        
+
         MessageofLabel.setVisible(false);
 
         DisplayTextArea.setVisible(true);
         ScrollPane.setVisible(true);
 
-        DisplayTextArea.setText(SystemClass.displayDevices(deviceList));
+        DisplayTextArea.setText(SystemClass.displayDevices(deviceList)
+                + "\nThe number of Laptop: " + SystemClass.getStockAmount_L()
+                + "\nThe number of Tablet: " + SystemClass.getStockAmount_T()
+                + "\nThe number of Smartphone: " + SystemClass.getStockAmount_S());
+        this.revalidate();// Trigger the layout manager to recalculate the component hierarchy
+        this.repaint();// Force a redraw of the frame to immediately reflect visibility changes
 
 
     }//GEN-LAST:event_DisplayRbBtnActionPerformed
@@ -191,7 +204,8 @@ public class PersonalFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_DeviceTypeComboBoxActionPerformed
 
     private void SerialTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SerialTextActionPerformed
-        // TODO add your handling code here:
+        clearUI();
+      // TODO add your handling code here:
         String serialNum = SerialText.getText().trim();
         if (DeleteRbBtn.isSelected()) {
             // Input Validation: Checks if input is empty
@@ -230,6 +244,9 @@ public class PersonalFrame extends javax.swing.JFrame {
             }
 
         }
+        this.revalidate();// Trigger the layout manager to recalculate the component hierarchy
+        this.repaint();// Force a redraw of the frame to immediately reflect visibility changess
+
     }//GEN-LAST:event_SerialTextActionPerformed
 
     /**
@@ -268,6 +285,21 @@ public class PersonalFrame extends javax.swing.JFrame {
                 new PersonalFrame().setVisible(true);
             }
         });
+    }
+
+    private void clearUI() {
+        /**
+         * Resets the visibility of all dynamic UI components to ensure a clean
+         * state before switching between different operations (Add, Delete,
+         * Search, Display).
+         */
+
+        ScrollPane.setVisible(false);// Hide the scroll pane that contains the inventory display
+        // Hide input-related labels and text fields
+        SerialLabel.setVisible(false);
+        SerialText.setVisible(false);
+        this.revalidate();// Trigger the layout manager to recalculate the component hierarchy
+        this.repaint();// Force a redraw of the frame to immediately reflect visibility changes
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

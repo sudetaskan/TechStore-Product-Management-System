@@ -159,6 +159,7 @@ public class ManagerFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void DeleteRbBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteRbBtnActionPerformed
+        clearUI();
         // Prepares UI for the operation
         SerialLabel.setVisible(true);
         SerialText.setVisible(true);
@@ -167,11 +168,14 @@ public class ManagerFrame extends javax.swing.JFrame {
         MessageofLabel.setText("");
         MessageofLabel.setVisible(false);
         String serialNum = SerialText.getText().trim();
+        this.revalidate();// Trigger the layout manager to recalculate the component hierarchy
+        this.repaint();// Force a redraw of the frame to immediately reflect visibility changes
 
 
     }//GEN-LAST:event_DeleteRbBtnActionPerformed
 
     private void SearchRbBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchRbBtnActionPerformed
+        clearUI();
         // Prepares UI for the operation
         SerialLabel.setVisible(true);
         SerialText.setVisible(true);
@@ -179,9 +183,12 @@ public class ManagerFrame extends javax.swing.JFrame {
 
         MessageofLabel.setText("");
         MessageofLabel.setVisible(false);
+        this.revalidate();// Trigger the layout manager to recalculate the component hierarchy
+        this.repaint();// Force a redraw of the frame to immediately reflect visibility changes
     }//GEN-LAST:event_SearchRbBtnActionPerformed
 
     private void DisplayRbBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DisplayRbBtnActionPerformed
+        clearUI();
         SerialLabel.setVisible(false);
         SerialText.setVisible(false);
         MessageofLabel.setVisible(false);
@@ -189,18 +196,26 @@ public class ManagerFrame extends javax.swing.JFrame {
         DisplayTextArea.setVisible(true);
         ScrollPane.setVisible(true);
         //Calls SystemClass to display all devices
-        DisplayTextArea.setText(SystemClass.displayDevices(deviceList));
+        DisplayTextArea.setText(SystemClass.displayDevices(deviceList)
+                + "\nThe number of Laptop: " + SystemClass.getStockAmount_L()
+                + "\nThe number of Tablet: " + SystemClass.getStockAmount_T()
+                + "\nThe number of Smartphone: " + SystemClass.getStockAmount_S());
+        this.revalidate();// Notifies the layout manager that the component hierarchy has changed and needs to be re-evaluated
+        this.repaint();// Schedules a repaint of the component to reflect visual updates on the screen
 
 
     }//GEN-LAST:event_DisplayRbBtnActionPerformed
 
     private void AddRbBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddRbBtnActionPerformed
+        clearUI();
         // Prepares UI for the operation
         SerialLabel.setVisible(true);
         SerialText.setVisible(true);
         SerialText.setText("");
         MessageofLabel.setText("");
         MessageofLabel.setVisible(true);
+        this.revalidate();// Trigger the layout manager to recalculate the component hierarchy
+        this.repaint();// Force a redraw of the frame to immediately reflect visibility changes
 
     }//GEN-LAST:event_AddRbBtnActionPerformed
 
@@ -211,7 +226,7 @@ public class ManagerFrame extends javax.swing.JFrame {
 
     private void SerialTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SerialTextActionPerformed
         String serialNum = SerialText.getText().trim();
-        
+        clearUI();
         // --- ADD OPERATION ---
         if (AddRbBtn.isSelected()) {
             // Input Validation
@@ -228,7 +243,7 @@ public class ManagerFrame extends javax.swing.JFrame {
             } else {
                 MessageofLabel.setText("No products matching the serial number you entered were found.");
             }
-        // --- DELETE OPERATION ---    
+            // --- DELETE OPERATION ---    
         } else if (DeleteRbBtn.isSelected()) {
             // Input Validation
             if (serialNum.isEmpty()) {
@@ -244,7 +259,7 @@ public class ManagerFrame extends javax.swing.JFrame {
             } else {
                 MessageofLabel.setText("No products matching the serial number you entered were found.");
             }
-        // --- SEARCH OPERATION ---
+            // --- SEARCH OPERATION ---
         } else if (SearchRbBtn.isSelected()) {
             // Input Validation
             if (serialNum.isEmpty()) {
@@ -299,6 +314,21 @@ public class ManagerFrame extends javax.swing.JFrame {
                 new ManagerFrame().setVisible(true);
             }
         });
+    }
+
+    private void clearUI() {
+        /**
+         * Resets the visibility of all dynamic UI components to ensure a clean
+         * state before switching between different operations (Add, Delete,
+         * Search, Display).
+         */
+
+        ScrollPane.setVisible(false);// Hide the scroll pane that contains the inventory display
+        // Hide input-related labels and text fields
+        SerialLabel.setVisible(false);
+        SerialText.setVisible(false);
+        this.revalidate();// Trigger the layout manager to recalculate the component hierarchy
+        this.repaint();// Force a redraw of the frame to immediately reflect visibility changes
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
