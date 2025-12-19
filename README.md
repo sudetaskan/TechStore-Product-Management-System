@@ -1,4 +1,7 @@
 # TECHSTORE PRODUCT MANAGEMENT SYSTEM
+## Group Members:
+* Beyza Yıldırım - 23050111010
+* Sude Taşkan  - 23050111016
 
 ## 📖Project Description
 TechStore Product Management System is a desktop application developed to help electronics stores manage their inventory efficiently. 
@@ -76,31 +79,36 @@ To demonstrate advanced algorithmic proficiency, we replaced standard iterative 
 We developed the user interface using the **Java Swing** library. The application is designed with a multi-frame architecture to separate user roles and functionalities effectively.
 
 **5.1. Multi-Frame Navigation**
-![Login Screen](images/01_login_interface.png)
-Secure Access: The system begins with a secure login interface to verify credentials.
+<p align="center"><img src="01_login_interface.png" width="500"></p>
+
+* **Secure Access:** The system begins with a secure login interface to verify credentials.
 
 * **Role-Based Routing:** Users are automatically redirected to either the ManagerFrame or PersonalFrame based on their authorization level (Manager or Staff), ensuring task-specific environments.
 
 **5.2. Category-Based Filtering (JComboBox)**
-![Staff Category Filter](images/06_staff_category_filter.png)
+<p align="center"><img src="05_staff_category_filter.png" width="600"></p>
+
 * **Dynamic Categorization:** Utilizing a JComboBox, users can effortlessly switch between hardware categories: Laptops, Tablets, and Smartphones.
 
 * **Comprehensive Overview:** The "All Of Them" selection triggers the recursive display algorithm to present the entire inventory in a single view.
 
 **5.3. Interactive Operation Flow (JRadioButtons)**
-![Manager Operations](images/02_manager_add_logic.png)
+<p align="center"><img src="02_manager_add_logic.png" width="600"></p>
+
 * **Adaptive UI:** To maintain a clutter-free workspace, the system uses dynamic visibility logic. Input fields, such as SerialText, and instruction labels remain hidden by default.
 
 * **Task-Specific Activation:** Relevant components and action-oriented labels only become visible once a specific operation (Add, Search, or Delete) is activated via the JRadioButtons.
 
 **5.4. Real-Time Data Display**
-![Inventory Display](images/03_inventory_listing.png)
+<p align="center"><img src="03_inventory_listing.png" width="600"></p>
+
 * **Formatted Output:** Inventory data is rendered in a clean, formatted string format within a JTextArea.
 
 * **Navigational Ease:** The output area is integrated with a JScrollPane, enabling vertical and horizontal navigation for large datasets, ensuring no information is cut off.
 
 **5.5. Consistent Design & UX**
-![Staff Interface](images/04_staff_interface.png)
+<p align="center"><img src="04_staff_interface.png" width="600"></p>
+
 * **Fixed Dimensions:** The application window is set to a fixed size to prevent layout distortion and ensure a uniform experience on different screens.
 
 * **Auto-Centering:** The frames are programmed to initialize at the center of the user's monitor, providing a professional look and feel from the first launch.
