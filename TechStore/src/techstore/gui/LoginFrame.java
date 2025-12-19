@@ -153,7 +153,7 @@ public class LoginFrame extends javax.swing.JFrame {
     private void LoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginButtonActionPerformed
         // TODO add your handling code here:
         /*
-         Manager Password for store is 1234S
+         Manager Password for store is 1234
          Personal Password for store is 4321
         */
         
