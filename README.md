@@ -1,4 +1,7 @@
 # TECHSTORE PRODUCT MANAGEMENT SYSTEM
+## Group Members:
+* Beyza Yıldırım - 23050111010
+* Sude Taşkan  - 23050111016
 
 ## 📖Project Description
 TechStore Product Management System is a desktop application developed to help electronics stores manage their inventory efficiently. 
