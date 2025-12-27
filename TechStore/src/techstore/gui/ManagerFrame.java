@@ -7,9 +7,11 @@ import techstore.models.ElectronicDevice;
 public class ManagerFrame extends javax.swing.JFrame {
 
     ArrayList<ElectronicDevice> deviceList = new ArrayList<>();
+    private int remainingSeconds=600;
 
     public ManagerFrame() {
         initComponents();
+        startSessionTimer();
         // Loads data from SystemClass
         SystemClass.addDevice(deviceList);
         // Sets initial visibility of components
@@ -19,6 +21,30 @@ public class ManagerFrame extends javax.swing.JFrame {
         DisplayTextArea.setVisible(false);
         ScrollPane.setVisible(false);
     }
+    private void startSessionTimer() {
+    // Her 1 saniyede (1000 ms) bir tetiklenen zamanlayıcı
+        javax.swing.Timer countdownTimer = new javax.swing.Timer(1000, e -> {
+        remainingSeconds--;
+
+        // Saniyeyi Dakika:Saniye formatına çevir (Örn: 09:45)
+        int minutes = remainingSeconds / 60;
+        int seconds = remainingSeconds % 60;
+        String timeStr = String.format("%02d:%02d", minutes, seconds);
+
+        // GUI üzerindeki etiketi güncelle
+        LabelTimer.setText("SESSION TIMEOUT  " + timeStr);
+
+        // Zaman dolduğunda oturumu kapat
+        if (remainingSeconds <= 0) {
+            ((javax.swing.Timer)e.getSource()).stop(); // Zamanlayıcıyı durdur
+            javax.swing.JOptionPane.showMessageDialog(this, "Session expired! Redirecting to Login...");
+            this.dispose();
+            new LoginFrame().setVisible(true);
+        }
+    });
+
+    countdownTimer.start(); // Geri sayımı başlat
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -36,9 +62,11 @@ public class ManagerFrame extends javax.swing.JFrame {
         SearchRbBtn = new javax.swing.JRadioButton();
         DisplayRbBtn = new javax.swing.JRadioButton();
         AddRbBtn = new javax.swing.JRadioButton();
+        ExitRbBtn = new javax.swing.JRadioButton();
         SerialLabel = new javax.swing.JLabel();
         SerialText = new javax.swing.JTextField();
         MessageofLabel = new javax.swing.JLabel();
+        LabelTimer = new javax.swing.JLabel();
         ScrollPane = new javax.swing.JScrollPane();
         DisplayTextArea = new javax.swing.JTextArea();
 
@@ -84,6 +112,13 @@ public class ManagerFrame extends javax.swing.JFrame {
             }
         });
 
+        ExitRbBtn.setText("Exit");
+        ExitRbBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ExitRbBtnActionPerformed(evt);
+            }
+        });
+
         SerialLabel.setText("Enter the serial number of the product :");
 
         SerialText.addActionListener(new java.awt.event.ActionListener() {
@@ -91,6 +126,10 @@ public class ManagerFrame extends javax.swing.JFrame {
                 SerialTextActionPerformed(evt);
             }
         });
+
+        LabelTimer.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        LabelTimer.setForeground(new java.awt.Color(0, 0, 255));
+        LabelTimer.setText(" ");
 
         ScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 
@@ -105,13 +144,15 @@ public class ManagerFrame extends javax.swing.JFrame {
             .addGroup(ManagerPanelLayout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addGroup(ManagerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(ManagerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(DeviceTypeComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(DeleteRbBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(SearchRbBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(DisplayRbBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE))
-                    .addComponent(AddRbBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(231, 231, 231)
+                    .addComponent(AddRbBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(LabelTimer, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(ManagerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(ExitRbBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(DeviceTypeComboBox, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(DeleteRbBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(SearchRbBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(DisplayRbBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)))
+                .addGap(141, 141, 141)
                 .addGroup(ManagerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(ManagerPanelLayout.createSequentialGroup()
                         .addComponent(SerialLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -119,7 +160,7 @@ public class ManagerFrame extends javax.swing.JFrame {
                         .addComponent(SerialText, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(MessageofLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 529, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(96, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         ManagerPanelLayout.setVerticalGroup(
             ManagerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -135,7 +176,7 @@ public class ManagerFrame extends javax.swing.JFrame {
                             .addComponent(SerialText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGroup(ManagerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(ManagerPanelLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                         .addComponent(AddRbBtn)
                         .addGap(18, 18, 18)
                         .addComponent(DeleteRbBtn)
@@ -143,16 +184,20 @@ public class ManagerFrame extends javax.swing.JFrame {
                         .addComponent(SearchRbBtn)
                         .addGap(18, 18, 18)
                         .addComponent(DisplayRbBtn)
-                        .addGap(569, 569, 569))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(ExitRbBtn)
+                        .addGap(314, 314, 314)
+                        .addComponent(LabelTimer, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(ManagerPanelLayout.createSequentialGroup()
                         .addGap(39, 39, 39)
                         .addComponent(MessageofLabel)
                         .addGap(31, 31, 31)
-                        .addComponent(ScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 519, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(ScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
-        getContentPane().add(ManagerPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        getContentPane().add(ManagerPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 940, 680));
 
         pack();
         setLocationRelativeTo(null);
@@ -314,6 +359,15 @@ public class ManagerFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_SerialTextActionPerformed
 
+    private void ExitRbBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitRbBtnActionPerformed
+        // TODO add your handling code here:
+        clearUI();
+        if(ExitRbBtn.isSelected()){
+            this.dispose();
+            new ExitFrame().setVisible(true);
+        }
+    }//GEN-LAST:event_ExitRbBtnActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -355,7 +409,12 @@ public class ManagerFrame extends javax.swing.JFrame {
          * state before switching between different operations (Add, Delete,
          * Search, Display).
          */
-
+        if (ExitRbBtn.isSelected()) {
+        SerialLabel.setVisible(false);
+        SerialText.setVisible(false);
+        MessageofLabel.setText("Click to confirm exit or press Enter.");
+        MessageofLabel.setVisible(true);
+        }
         ScrollPane.setVisible(false);// Hide the scroll pane that contains the inventory display
         // Hide input-related labels and text fields
         SerialLabel.setVisible(false);
@@ -370,7 +429,9 @@ public class ManagerFrame extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> DeviceTypeComboBox;
     private javax.swing.JRadioButton DisplayRbBtn;
     private javax.swing.JTextArea DisplayTextArea;
+    private javax.swing.JRadioButton ExitRbBtn;
     private javax.swing.ButtonGroup FunctionGroups;
+    private javax.swing.JLabel LabelTimer;
     private javax.swing.JPanel ManagerPanel;
     private javax.swing.JLabel MessageofLabel;
     private javax.swing.JScrollPane ScrollPane;

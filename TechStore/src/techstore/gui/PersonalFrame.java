@@ -7,10 +7,12 @@ import techstore.models.ElectronicDevice;
 public class PersonalFrame extends javax.swing.JFrame {
 
     ArrayList<ElectronicDevice> deviceList = new ArrayList<>();
-
+    private int remainingSeconds=600;
+    
     public PersonalFrame() {
         initComponents();
         // Loads data from SystemClass
+        startSessionTimer();
         SystemClass.addDevice(deviceList);
 
         // Sets initial visibility of components
@@ -36,13 +38,16 @@ public class PersonalFrame extends javax.swing.JFrame {
         DeleteRbBtn = new javax.swing.JRadioButton();
         SearchRbBtn = new javax.swing.JRadioButton();
         DisplayRbBtn = new javax.swing.JRadioButton();
+        ExitRbBtn = new javax.swing.JRadioButton();
         SerialLabel = new javax.swing.JLabel();
         SerialText = new javax.swing.JTextField();
         MessageofLabel = new javax.swing.JLabel();
+        LabelTimer = new javax.swing.JLabel();
         ScrollPane = new javax.swing.JScrollPane();
         DisplayTextArea = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(940, 680));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         DeviceTypeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Laptop", "Tablet", "Smartphone", "All Of Them" }));
@@ -76,6 +81,14 @@ public class PersonalFrame extends javax.swing.JFrame {
             }
         });
 
+        FunctionGroups.add(ExitRbBtn);
+        ExitRbBtn.setText("Exit");
+        ExitRbBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ExitRbBtnActionPerformed(evt);
+            }
+        });
+
         SerialLabel.setText("Enter the serial number of the product :");
 
         SerialText.addActionListener(new java.awt.event.ActionListener() {
@@ -83,6 +96,9 @@ public class PersonalFrame extends javax.swing.JFrame {
                 SerialTextActionPerformed(evt);
             }
         });
+
+        LabelTimer.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        LabelTimer.setForeground(new java.awt.Color(51, 51, 255));
 
         ScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 
@@ -96,20 +112,24 @@ public class PersonalFrame extends javax.swing.JFrame {
             PersonalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PersonalPanelLayout.createSequentialGroup()
                 .addGap(28, 28, 28)
-                .addGroup(PersonalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(DeviceTypeComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(DeleteRbBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(SearchRbBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(DisplayRbBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE))
-                .addGap(231, 231, 231)
                 .addGroup(PersonalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PersonalPanelLayout.createSequentialGroup()
-                        .addComponent(SerialLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(SerialText, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(MessageofLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 529, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(96, Short.MAX_VALUE))
+                    .addGroup(PersonalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(ExitRbBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(DeviceTypeComboBox, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(DeleteRbBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(SearchRbBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(DisplayRbBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE))
+                    .addComponent(LabelTimer, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(118, 118, 118)
+                .addGroup(PersonalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(PersonalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(PersonalPanelLayout.createSequentialGroup()
+                            .addComponent(SerialLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(SerialText, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(MessageofLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 558, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
         PersonalPanelLayout.setVerticalGroup(
             PersonalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -135,16 +155,44 @@ public class PersonalFrame extends javax.swing.JFrame {
                     .addGroup(PersonalPanelLayout.createSequentialGroup()
                         .addComponent(SearchRbBtn)
                         .addGap(18, 18, 18)
-                        .addComponent(DisplayRbBtn))
-                    .addComponent(ScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 519, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(132, Short.MAX_VALUE))
+                        .addComponent(DisplayRbBtn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(ExitRbBtn)
+                        .addGap(373, 373, 373)
+                        .addComponent(LabelTimer, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 493, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
-        getContentPane().add(PersonalPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        getContentPane().add(PersonalPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 940, 680));
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+    private void startSessionTimer() {
+    // Her 1 saniyede (1000 ms) bir tetiklenen zamanlayıcı
+        javax.swing.Timer countdownTimer = new javax.swing.Timer(1000, e -> {
+        remainingSeconds--;
+
+        // Saniyeyi Dakika:Saniye formatına çevir (Örn: 09:45)
+        int minutes = remainingSeconds / 60;
+        int seconds = remainingSeconds % 60;
+        String timeStr = String.format("%02d:%02d", minutes, seconds);
+
+        // GUI üzerindeki etiketi güncelle
+        LabelTimer.setText("SESSION TIMEOUT  " + timeStr);
+
+        // Zaman dolduğunda oturumu kapat
+        if (remainingSeconds <= 0) {
+            ((javax.swing.Timer)e.getSource()).stop(); // Zamanlayıcıyı durdur
+            javax.swing.JOptionPane.showMessageDialog(this, "Session expired! Redirecting to Login...");
+            this.dispose();
+            new LoginFrame().setVisible(true);
+        }
+    });
+
+    countdownTimer.start(); // Geri sayımı başlat
+}
 
     private void DeleteRbBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteRbBtnActionPerformed
         clearUI();
@@ -179,19 +227,50 @@ public class PersonalFrame extends javax.swing.JFrame {
 
     private void DisplayRbBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DisplayRbBtnActionPerformed
         clearUI();
-// Calls SystemClass to display all devices
         SerialLabel.setVisible(false);
         SerialText.setVisible(false);
-
         MessageofLabel.setVisible(false);
 
         DisplayTextArea.setVisible(true);
         ScrollPane.setVisible(true);
+        String selectedCategory = (String) DeviceTypeComboBox.getSelectedItem();
+        StringBuilder filteredData = new StringBuilder();
 
-        DisplayTextArea.setText(SystemClass.displayDevices(deviceList)
-                + "\nThe number of Laptop: " + SystemClass.getStockAmount_L()
-                + "\nThe number of Tablet: " + SystemClass.getStockAmount_T()
-                + "\nThe number of Smartphone: " + SystemClass.getStockAmount_S());
+         // Iterate through the device list and filter objects based on their specific type using 'instanceof'
+        for (techstore.models.ElectronicDevice device : deviceList) {
+            if (selectedCategory.equals("Laptop") && device instanceof techstore.models.Laptop) {
+                filteredData.append(device.toString()).append("\n----------------------------------------------\n");
+
+            } else if (selectedCategory.equals("Tablet") && device instanceof techstore.models.Tablet) {
+                filteredData.append(device.toString()).append("\n-------------------------------------------------\n");
+
+            } else if (selectedCategory.equals("Smartphone") && device instanceof techstore.models.SmartPhone) {
+                filteredData.append(device.toString()).append("\n-------------------------------------------------\n");
+
+            } else if (selectedCategory.equals("All Of Them")) {
+                filteredData.append(device.toString()).append("\n-------------------------------------------------\n");
+
+            }
+        }
+
+        // Update the text area with the filtered results or show a 'not found' message
+        if (filteredData.length() == 0) {
+            DisplayTextArea.setText("No products found in the " + selectedCategory + " category.");
+        } else {
+            DisplayTextArea.setText(filteredData.toString());
+        }
+        DisplayTextArea.append("\n=== STOCK AMOUNT ===");
+
+        if (selectedCategory.equals("Laptop") || selectedCategory.equals("All Of Them")) {
+            DisplayTextArea.append("\nLaptops in Stock: " + techstore.SystemClass.getStockAmount_L());
+        }
+        if (selectedCategory.equals("Tablet") || selectedCategory.equals("All Of Them")) {
+            DisplayTextArea.append("\nTablets in Stock: " + techstore.SystemClass.getStockAmount_T());
+        }
+        if (selectedCategory.equals("Smartphone") || selectedCategory.equals("All Of Them")) {
+            DisplayTextArea.append("\nSmartphones in Stock: " + techstore.SystemClass.getStockAmount_S());
+        }
+
         this.revalidate();// Trigger the layout manager to recalculate the component hierarchy
         this.repaint();// Force a redraw of the frame to immediately reflect visibility changes
 
@@ -200,7 +279,7 @@ public class PersonalFrame extends javax.swing.JFrame {
 
     private void DeviceTypeComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeviceTypeComboBoxActionPerformed
         // TODO add your handling code here:
-
+        
     }//GEN-LAST:event_DeviceTypeComboBoxActionPerformed
 
     private void SerialTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SerialTextActionPerformed
@@ -249,6 +328,15 @@ public class PersonalFrame extends javax.swing.JFrame {
 
     }//GEN-LAST:event_SerialTextActionPerformed
 
+    private void ExitRbBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitRbBtnActionPerformed
+        // TODO add your handling code here:
+        clearUI();
+        if(ExitRbBtn.isSelected()){
+            this.dispose();
+            new ExitFrame().setVisible(true);
+        }
+    }//GEN-LAST:event_ExitRbBtnActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -293,7 +381,14 @@ public class PersonalFrame extends javax.swing.JFrame {
          * state before switching between different operations (Add, Delete,
          * Search, Display).
          */
-
+        if (ExitRbBtn.isSelected()) {
+        SerialLabel.setVisible(false);
+        SerialText.setVisible(false);
+        MessageofLabel.setText("Click to confirm exit or press Enter.");
+        MessageofLabel.setVisible(true);
+    }
+        
+        
         ScrollPane.setVisible(false);// Hide the scroll pane that contains the inventory display
         // Hide input-related labels and text fields
         SerialLabel.setVisible(false);
@@ -307,7 +402,9 @@ public class PersonalFrame extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> DeviceTypeComboBox;
     private javax.swing.JRadioButton DisplayRbBtn;
     private javax.swing.JTextArea DisplayTextArea;
+    private javax.swing.JRadioButton ExitRbBtn;
     private javax.swing.ButtonGroup FunctionGroups;
+    private javax.swing.JLabel LabelTimer;
     private javax.swing.JLabel MessageofLabel;
     private javax.swing.JPanel PersonalPanel;
     private javax.swing.JScrollPane ScrollPane;
