@@ -195,13 +195,46 @@ public class ManagerFrame extends javax.swing.JFrame {
 
         DisplayTextArea.setVisible(true);
         ScrollPane.setVisible(true);
-        //Calls SystemClass to display all devices
-        DisplayTextArea.setText(SystemClass.displayDevices(deviceList)
-                + "\nThe number of Laptop: " + SystemClass.getStockAmount_L()
-                + "\nThe number of Tablet: " + SystemClass.getStockAmount_T()
-                + "\nThe number of Smartphone: " + SystemClass.getStockAmount_S());
-        this.revalidate();// Notifies the layout manager that the component hierarchy has changed and needs to be re-evaluated
-        this.repaint();// Schedules a repaint of the component to reflect visual updates on the screen
+        String selectedCategory = (String) DeviceTypeComboBox.getSelectedItem();
+        StringBuilder filteredData = new StringBuilder();
+
+         // Iterate through the device list and filter objects based on their specific type using 'instanceof'
+        for (techstore.models.ElectronicDevice device : deviceList) {
+            if (selectedCategory.equals("Laptop") && device instanceof techstore.models.Laptop) {
+                filteredData.append(device.toString()).append("\n----------------------------------------------\n");
+
+            } else if (selectedCategory.equals("Tablet") && device instanceof techstore.models.Tablet) {
+                filteredData.append(device.toString()).append("\n-------------------------------------------------\n");
+
+            } else if (selectedCategory.equals("Smartphone") && device instanceof techstore.models.SmartPhone) {
+                filteredData.append(device.toString()).append("\n-------------------------------------------------\n");
+
+            } else if (selectedCategory.equals("All Of Them")) {
+                filteredData.append(device.toString()).append("\n-------------------------------------------------\n");
+
+            }
+        }
+
+        // Update the text area with the filtered results or show a 'not found' message
+        if (filteredData.length() == 0) {
+            DisplayTextArea.setText("No products found in the " + selectedCategory + " category.");
+        } else {
+            DisplayTextArea.setText(filteredData.toString());
+        }
+        DisplayTextArea.append("\n=== STOCK AMOUNT ===");
+
+        if (selectedCategory.equals("Laptop") || selectedCategory.equals("All Of Them")) {
+            DisplayTextArea.append("\nLaptops in Stock: " + techstore.SystemClass.getStockAmount_L());
+        }
+        if (selectedCategory.equals("Tablet") || selectedCategory.equals("All Of Them")) {
+            DisplayTextArea.append("\nTablets in Stock: " + techstore.SystemClass.getStockAmount_T());
+        }
+        if (selectedCategory.equals("Smartphone") || selectedCategory.equals("All Of Them")) {
+            DisplayTextArea.append("\nSmartphones in Stock: " + techstore.SystemClass.getStockAmount_S());
+        }
+
+        this.revalidate();// Trigger the layout manager to recalculate the component hierarchy
+        this.repaint();// Force a redraw of the frame to immediately reflect visibility changes
 
 
     }//GEN-LAST:event_DisplayRbBtnActionPerformed
