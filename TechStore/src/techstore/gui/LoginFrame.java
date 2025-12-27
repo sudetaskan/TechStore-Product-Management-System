@@ -7,10 +7,10 @@ package techstore.gui;
 import java.awt.Color;
 
 public class LoginFrame extends javax.swing.JFrame {
-    
+
     public LoginFrame() {
         initComponents();
-        
+
     }
 
     /**
@@ -126,7 +126,7 @@ public class LoginFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void UserPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UserPasswordActionPerformed
-        
+
     }//GEN-LAST:event_UserPasswordActionPerformed
 
     private void UserPasswordKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_UserPasswordKeyTyped
@@ -134,8 +134,9 @@ public class LoginFrame extends javax.swing.JFrame {
         char c = evt.getKeyChar();
         String password = new String(UserPassword.getPassword());
 
-        if (password.length() >=4 && c != java.awt.event.KeyEvent.VK_BACK_SPACE) {
-            evt.consume();  }
+        if (password.length() >= 4 && c != java.awt.event.KeyEvent.VK_BACK_SPACE) {
+            evt.consume();
+        }
 
         if (!Character.isDigit(c) && c != java.awt.event.KeyEvent.VK_BACK_SPACE) {
             evt.consume();
@@ -147,20 +148,21 @@ public class LoginFrame extends javax.swing.JFrame {
         /*
          Manager Password for store is 1234
          Personal Password for store is 4321
-        */
-        int managerPassword = 1234 ,personalPassword = 4321;
+         */
+        int managerPassword = 1234, personalPassword = 4321;
         String password = new String(UserPassword.getPassword());
-        int userPassword=Integer.parseInt(password);
-        if(userPassword == managerPassword){
-            this.dispose();
+        int userPassword = Integer.parseInt(password);
+
+        
+        if (userPassword == managerPassword) {
+            this.dispose();// Manager login: Close login screen and transition to Manager view via loading
             new LoadingFrame(new ManagerFrame()).setVisible(true);
-            
-            
-        }
-        if(userPassword == personalPassword){
-             this.dispose();
-             new LoadingFrame(new PersonalFrame()).setVisible(true);
-             
+
+                    }
+        if (userPassword == personalPassword) {
+            this.dispose();// Personal login: Close login screen and transition to Personal view via loading
+            new LoadingFrame(new PersonalFrame()).setVisible(true);
+
         }
     }//GEN-LAST:event_LoginButtonActionPerformed
 

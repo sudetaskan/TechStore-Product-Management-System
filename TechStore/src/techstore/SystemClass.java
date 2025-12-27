@@ -61,7 +61,7 @@ public class SystemClass {
         addToSystem(list, new Tablet("Apple", "iPad 11th Gen", "MD3Y4TU/A", 18499, 11));
         addToSystem(list, new Tablet("Samsung", "Galaxy Tab S10FE 8/128GB", "SM-X520NLBRTUR", 16899, 10.9));
         addToSystem(list, new Tablet("Lenovo", "Idea Tab 8/128GB", "ZAFM0109TR", 13999, 11));
-        addToSystem(list, new Tablet("Samsung", "Galaxy Tab S10 Lite 8/256GB", "SM-X400NZSPTUR ", 15799, 10.9));
+        addToSystem(list, new Tablet("Samsung", "Galaxy Tab S10 Lite 8/256GB", "SM-X400NZSPTUR", 15799, 10.9));
 
         //Device:Smartphonnes
         addToSystem(list, new SmartPhone("Apple", "iPhone 15 Pro", "MTUW3TU/A", 90199, true));

@@ -7,12 +7,12 @@ import techstore.models.ElectronicDevice;
 public class PersonalFrame extends javax.swing.JFrame {
 
     ArrayList<ElectronicDevice> deviceList = new ArrayList<>();
-    private int remainingSeconds=600;
-    
+    private int remainingSeconds = 300;
+
     public PersonalFrame() {
         initComponents();
-        // Loads data from SystemClass
-        startSessionTimer();
+        
+        startSessionTimer();// Loads data from SystemClass
         SystemClass.addDevice(deviceList);
 
         // Sets initial visibility of components
@@ -170,33 +170,33 @@ public class PersonalFrame extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     private void startSessionTimer() {
-    // Her 1 saniyede (1000 ms) bir tetiklenen zamanlayıcı
+        // Initialize a timer that triggers every 1000ms (1 second)
         javax.swing.Timer countdownTimer = new javax.swing.Timer(1000, e -> {
-        remainingSeconds--;
+            remainingSeconds--;
 
-        // Saniyeyi Dakika:Saniye formatına çevir (Örn: 09:45)
-        int minutes = remainingSeconds / 60;
-        int seconds = remainingSeconds % 60;
-        String timeStr = String.format("%02d:%02d", minutes, seconds);
+            // Calculate minutes and seconds to format as MM:SS
+            int minutes = remainingSeconds / 60;
+            int seconds = remainingSeconds % 60;
+            String timeStr = String.format("%02d:%02d", minutes, seconds);
 
-        // GUI üzerindeki etiketi güncelle
-        LabelTimer.setText("SESSION TIMEOUT  " + timeStr);
+            // Update the timer label on the GUI
+            LabelTimer.setText("SESSION TIMEOUT  " + timeStr);
 
-        // Zaman dolduğunda oturumu kapat
-        if (remainingSeconds <= 0) {
-            ((javax.swing.Timer)e.getSource()).stop(); // Zamanlayıcıyı durdur
-            javax.swing.JOptionPane.showMessageDialog(this, "Session expired! Redirecting to Login...");
-            this.dispose();
-            new LoginFrame().setVisible(true);
-        }
-    });
+            // If time is up, stop the timer and redirect to LoginFrame
+            if (remainingSeconds <= 0) {
+                ((javax.swing.Timer) e.getSource()).stop();
+                javax.swing.JOptionPane.showMessageDialog(this, "Session expired! Redirecting to Login...");
+                this.dispose();
+                new LoginFrame().setVisible(true);
+            }
+        });
 
-    countdownTimer.start(); // Geri sayımı başlat
-}
+        countdownTimer.start(); // Start the countdown execution
+    }
 
     private void DeleteRbBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteRbBtnActionPerformed
         clearUI();
-       // Prepares UI for the operation
+        // Prepares UI for the operation
         SerialLabel.setVisible(true);
         SerialText.setVisible(true);
         SerialText.setText("");
@@ -236,7 +236,7 @@ public class PersonalFrame extends javax.swing.JFrame {
         String selectedCategory = (String) DeviceTypeComboBox.getSelectedItem();
         StringBuilder filteredData = new StringBuilder();
 
-         // Iterate through the device list and filter objects based on their specific type using 'instanceof'
+        // Iterate through the device list and filter objects based on their specific type using 'instanceof'
         for (techstore.models.ElectronicDevice device : deviceList) {
             if (selectedCategory.equals("Laptop") && device instanceof techstore.models.Laptop) {
                 filteredData.append(device.toString()).append("\n----------------------------------------------\n");
@@ -259,6 +259,7 @@ public class PersonalFrame extends javax.swing.JFrame {
         } else {
             DisplayTextArea.setText(filteredData.toString());
         }
+        // Append real-time stock amounts to the display
         DisplayTextArea.append("\n=== STOCK AMOUNT ===");
 
         if (selectedCategory.equals("Laptop") || selectedCategory.equals("All Of Them")) {
@@ -279,61 +280,66 @@ public class PersonalFrame extends javax.swing.JFrame {
 
     private void DeviceTypeComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeviceTypeComboBoxActionPerformed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_DeviceTypeComboBoxActionPerformed
 
     private void SerialTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SerialTextActionPerformed
-        clearUI();
-      // TODO add your handling code here:
         String serialNum = SerialText.getText().trim();
-        if (DeleteRbBtn.isSelected()) {
-            // Input Validation: Checks if input is empty
-            if (serialNum.isEmpty()) {
-                MessageofLabel.setText("Please enter a serial number!");
-                return;
-            }
-            MessageofLabel.setVisible(true);
-            // Search Logic: Checks if the device exists
-            ElectronicDevice ex = SystemClass.searchDevice(deviceList, serialNum);
-            if (ex != null) {
-                // Delete Logic: Removes device via SystemClass
-                SystemClass.deleteDevice(deviceList, serialNum);
-                MessageofLabel.setText("Product deleted successfully");
-            } else {
-                MessageofLabel.setText("No products matching the serial number you entered were found.");
-            }
+        String selectedCategory = (String) DeviceTypeComboBox.getSelectedItem(); 
+        clearUI();
 
-        } else if (SearchRbBtn.isSelected()) {
-            // Input Validation
-            if (serialNum.isEmpty()) {
-                MessageofLabel.setText("Please enter a serial number!");
-                return;
+        MessageofLabel.setVisible(true);
+        // Validation: Check if the serial number field is empty
+        if (serialNum.isEmpty()) {
+            MessageofLabel.setText("Please enter a serial number!");
+            return;
+        }
+
+        // Execution: Search for the device in the master list by serial number
+        techstore.models.ElectronicDevice ex = SystemClass.searchDevice(deviceList, serialNum);
+        boolean typeMatches = false;
+        // Type Verification: Use 'instanceof' to check if the found object matches the selected category
+        if (ex != null) {
+            if (selectedCategory.equals("Laptop") && ex instanceof techstore.models.Laptop) {
+                typeMatches = true;
+            } else if (selectedCategory.equals("Tablet") && ex instanceof techstore.models.Tablet) {
+                typeMatches = true;
+            } else if (selectedCategory.equals("Smartphone") && ex instanceof techstore.models.SmartPhone) {
+                typeMatches = true;
+            } else if (selectedCategory.equals("All Of Them")) {
+                typeMatches = true;
             }
-            MessageofLabel.setVisible(true);
-            // Search and Display Logic
-            ElectronicDevice ex = SystemClass.searchDevice(deviceList, serialNum);
-            if (ex != null) {
+        }
+        // Logic Handling: Process operations if device exists and category is correct
+        if (ex != null && typeMatches) {
+
+           
+            if (DeleteRbBtn.isSelected()) {
+                SystemClass.deleteDevice(deviceList, serialNum);
+                MessageofLabel.setText("Product deleted successfully ");
+            } else if (SearchRbBtn.isSelected()) {
                 DisplayTextArea.setVisible(true);
                 ScrollPane.setVisible(true);
-                MessageofLabel.setText("Product successfully founded");
-                // Shows specific device details
+                MessageofLabel.setText("Product found successfully ");
                 DisplayTextArea.setText(SystemClass.searchDisplay(ex));
-            } else {
-                MessageofLabel.setText("No products matching the serial number you entered were found.");
             }
-
+        } else if (ex != null && !typeMatches) {
+            // Error Handling: Serial number found but type mismatch
+            MessageofLabel.setText("Serial " + serialNum + " found, but it is NOT a " + selectedCategory + "!");
+        } else {
+            // Error Handling: No device found with the provided serial number
+            MessageofLabel.setText("No products matching the serial number were found.");
         }
-        this.revalidate();// Trigger the layout manager to recalculate the component hierarchy
-        this.repaint();// Force a redraw of the frame to immediately reflect visibility changess
 
     }//GEN-LAST:event_SerialTextActionPerformed
 
     private void ExitRbBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitRbBtnActionPerformed
         // TODO add your handling code here:
         clearUI();
-        if(ExitRbBtn.isSelected()){
+        // If exit is selected, close current frame and open ExitFrame
+        if (ExitRbBtn.isSelected()) {
             this.dispose();
-            new ExitFrame().setVisible(true);
+            new ExitFrame().setVisible(true);// Show the final exit screen
         }
     }//GEN-LAST:event_ExitRbBtnActionPerformed
 
@@ -381,18 +387,13 @@ public class PersonalFrame extends javax.swing.JFrame {
          * state before switching between different operations (Add, Delete,
          * Search, Display).
          */
-        if (ExitRbBtn.isSelected()) {
-        SerialLabel.setVisible(false);
-        SerialText.setVisible(false);
-        MessageofLabel.setText("Click to confirm exit or press Enter.");
-        MessageofLabel.setVisible(true);
-    }
         
-        
+
         ScrollPane.setVisible(false);// Hide the scroll pane that contains the inventory display
         // Hide input-related labels and text fields
         SerialLabel.setVisible(false);
         SerialText.setVisible(false);
+        MessageofLabel.setVisible(false);
         this.revalidate();// Trigger the layout manager to recalculate the component hierarchy
         this.repaint();// Force a redraw of the frame to immediately reflect visibility changes
     }
